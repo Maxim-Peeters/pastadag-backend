@@ -7,8 +7,8 @@ interface IOrder extends Document {
   aantalPortiesSpaghettiBolognese: number;
   aantalPortiesPastaPesto: number;
   aantalPortiesPastaPreiSpek: number;
-  afhalenOfBinnenEten: 'afhalen' | 'binnen eten';
-  uurAfhalenEten: Date;
+  binnenAfhalen: 'afhalen' | 'binnen eten';
+  tijd: string;
   createdAt: Date;
   totaalAantalPorties?: number; // This is a virtual field
 }
@@ -51,23 +51,18 @@ const OrderSchema: Schema<IOrder> = new Schema({
     min: [0, 'Aantal porties kan niet negatief zijn'],
     default: 0
   },
-  afhalenOfBinnenEten: {
+  binnenAfhalen: {
     type: String,
     enum: {
-      values: ['afhalen', 'binnen eten'],
+      values: ['Afhalen', 'Binnen eten'],
       message: '{VALUE} is niet geldig. Kies "afhalen" of "binnen eten"'
     },
     required: [true, 'Geef aan of u wilt afhalen of binnen eten']
   },
-  uurAfhalenEten: {
-    type: Date,
+  tijd: {
+    type: String,
     required: [true, 'Tijd van afhalen/eten is verplicht'],
-    validate: {
-      validator: function (v: Date) {
-        return v > new Date();
-      },
-      message: 'De tijd moet in de toekomst liggen'
-    }
+    
   },
   
 }, {
