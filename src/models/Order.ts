@@ -7,6 +7,8 @@ interface IOrder extends Document {
   aantalPortiesSpaghettiBolognese: number;
   aantalPortiesPastaPesto: number;
   aantalPortiesPastaPreiSpek: number;
+  aantalChocoMouse: number;
+  aantalKoekjestaart: number;
   binnenAfhalen: 'afhalen' | 'binnen eten';
   tijd: string;
   createdAt: Date;
@@ -46,6 +48,18 @@ const OrderSchema: Schema<IOrder> = new Schema({
     default: 0
   },
   aantalPortiesPastaPreiSpek: {
+    type: Number,
+    required: true,
+    min: [0, 'Aantal porties kan niet negatief zijn'],
+    default: 0
+  },
+  aantalChocoMouse: {
+    type: Number,
+    required: true,
+    min: [0, 'Aantal porties kan niet negatief zijn'],
+    default: 0
+  },
+  aantalKoekjestaart: {
     type: Number,
     required: true,
     min: [0, 'Aantal porties kan niet negatief zijn'],
