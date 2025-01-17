@@ -2,6 +2,7 @@ import mongoose, { Document, Schema, Model, model } from "mongoose";
 
 // Define an interface representing an order document in MongoDB.
 interface IOrder extends Document {
+  status: 'Klaar' | 'Bezig' | 'Niet begonnen';
   naam: string;
   email: string;
   aantalPortiesSpaghettiBolognese: number;
@@ -17,6 +18,15 @@ interface IOrder extends Document {
 
 // Create a Schema corresponding to the document interface.
 const OrderSchema: Schema<IOrder> = new Schema({
+  status: {
+    type: String,
+    enum: {
+      values: ['Klaar', 'Bezig', 'Niet begonnen'],
+      message: '{VALUE} is niet geldig. Kies "Klaar", "Bezig" of "Niet begonnen"'
+    },
+    required: [true, 'Status is verplicht'],
+    default: 'Niet begonnen'
+  },
   naam: {
     type: String,
     required: [true, 'Naam is verplicht'],
