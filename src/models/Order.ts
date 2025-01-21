@@ -93,28 +93,10 @@ const OrderSchema: Schema<IOrder> = new Schema({
   timestamps: true
 });
 
-// Validate that at least one pasta portion is ordered
-OrderSchema.pre<IOrder>('save', function (next) {
-  const totalPorties =
-    (this.aantalPortiesSpaghettiBolognese || 0) +
-    (this.aantalPortiesPastaPesto || 0) +
-    (this.aantalPortiesPastaPreiSpek || 0);
 
-  if (totalPorties === 0) {
-    next(new Error('Bestel minimaal één portie pasta'));
-  } else {
-    next();
-  }
-});
 
 // Add a virtual for the total number of portions
-OrderSchema.virtual('totaalAantalPorties').get(function (this: IOrder) {
-  return (
-    (this.aantalPortiesSpaghettiBolognese || 0) +
-    (this.aantalPortiesPastaPesto || 0) +
-    (this.aantalPortiesPastaPreiSpek || 0)
-  );
-});
+
 
 // Create and export the model
 const Order = model<IOrder>('Order', OrderSchema);

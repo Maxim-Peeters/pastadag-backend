@@ -76,3 +76,4 @@ debug/
 *.crt
 *.key
 *.ca-bundle
+.vercel
