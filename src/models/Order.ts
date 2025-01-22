@@ -1,7 +1,8 @@
 import mongoose, { Document, Schema, Model, model } from "mongoose";
+import express from 'express';
 
 // Define an interface representing an order document in MongoDB.
-interface IOrder extends Document {
+export interface IOrder extends Document {
   status: 'Klaar' | 'Bezig' | 'Niet begonnen';
   naam: string;
   email: string;

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Order from '../models/Order';
-
+import {  sendOrderToMailingService } from '../services/mailingService';
 export const getAllOrders = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   try {
     const orders = await Order.find();
@@ -25,6 +25,7 @@ export const getOrderById = async (req: Request, res: Response, next: NextFuncti
 export const createOrder = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   try {
     const order = await Order.create(req.body);
+    await sendOrderToMailingService(order);
     return res.status(201).json(order);
   } catch (err) {
     next(err); // Pass the error to the error handling middleware
